@@ -1,0 +1,122 @@
+# Fantasy Cricket Tournament
+
+print("======================================")
+print("       FANTASY CRICKET TOURNAMENT")
+print("======================================")
+
+# Number of participants
+n = int(input("\nEnter number of participants: "))
+
+# Store participant and points
+results = {}
+
+# Available cricket players
+available_players = [
+    "Virat Kohli",
+    "Rohit Sharma",
+    "Jasprit Bumrah",
+    "Ravindra Jadeja",
+    "KL Rahul",
+    "Hardik Pandya",
+    "Rishabh Pant",
+    "Mohammed Siraj"
+]
+
+print("\nAvailable Players:")
+for player in available_players:
+    print("-", player)
+
+
+# Take data of every participant
+for i in range(n):
+
+    print("\n--------------------------------------")
+    print("Participant", i + 1)
+    print("--------------------------------------")
+
+    name = input("Enter participant name: ")
+
+    team = []
+
+    print("\nChoose 4 players for your team:")
+
+    # Select 4 players
+    for j in range(4):
+
+        while True:
+            player = input("Enter player name: ")
+
+            if player in available_players:
+
+                if player not in team:
+                    team.append(player)
+                    break
+                else:
+                    print("Player already selected. Choose another player.")
+
+            else:
+                print("Invalid player. Please choose from the available players.")
+
+    # Display selected team
+    print("\nYour Team:")
+    for player in team:
+        print("-", player)
+
+    # Calculate total points
+    total_points = 0
+
+    print("\nEnter today's performance:")
+
+    for player in team:
+
+        print("\nPerformance of", player)
+
+        runs = int(input("Runs scored: "))
+        wickets = int(input("Wickets taken: "))
+        catches = int(input("Catches taken: "))
+
+        # Fantasy points calculation
+        points = runs + (wickets * 20) + (catches * 10)
+
+        print("Fantasy Points =", points)
+
+        total_points = total_points + points
+
+    # Store participant's total points
+    results[name] = total_points
+
+    print("\nTotal points of", name, "=", total_points)
+
+
+# Create ranking
+ranking = sorted(
+    results.items(),
+    key=lambda x: x[1],
+    reverse=True
+)
+
+
+# Display final leaderboard
+print("\n======================================")
+print("          FINAL LEADERBOARD")
+print("======================================")
+
+rank = 1
+
+for name, points in ranking:
+
+    print(rank, ".", name, "-", points, "points")
+
+    rank = rank + 1
+
+
+# Display Rank 1
+print("\n======================================")
+print("             WINNER")
+print("======================================")
+
+print("Rank 1:", ranking[0][0])
+print("Points:", ranking[0][1])
+
+print("\nCongratulations!")
+print(ranking[0][0], "is the No. 1 player!")
